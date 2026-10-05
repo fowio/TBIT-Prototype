@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: #EDE8DF;
+  --color-surface: #F5F0E8;
+  --color-card: #FDFAF4;
+  --color-primary: #4A7C5F;
+  --color-primary-light: #C8DDD1;
+  --color-accent: #9B2226;
+  --color-accent-light: #F3D0D1;
+  --color-muted: #B5AFA8;
+  --color-muted-fg: #7A756E;
+  --color-dark: #1C1C1C;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-gold: #B7791F;
+  --color-primary-deep: #355C45;
+  --font-sans: 'League Spartan', system-ui, sans-serif;
+}
+
+.page-wash {
+  background: linear-gradient(180deg, #DCE8DF 0%, #E8EDE3 16%, #EDE8DF 34%);
+}
+
+.hero-green {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.22), transparent 60%),
+    linear-gradient(180deg, #4A7C5F 0%, #355C45 100%);
+  border-bottom-left-radius: 50% 48px;
+  border-bottom-right-radius: 50% 48px;
+}
+
+.snap-row {
+  scroll-snap-type: x mandatory;
+}
+.snap-row > * {
+  scroll-snap-align: start;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  min-height: 100dvh;
+}
+
+body {
+  font-family: 'League Spartan', system-ui, sans-serif;
+  background-color: #EDE8DF;
+  color: #1C1C1C;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
