@@ -1,13 +1,11 @@
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import fs from 'node:fs'
 import path from 'node:path'
-
-import siteConfiguration from './.figma/make/site.json'
 
 
 export default defineConfig(({ mode }) => {
-  base: '/TBIT-Prototype/',
   const emitSourcemaps = mode === 'development'
 
   return {
@@ -19,7 +17,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
 react(),
       tailwindcss(),
-      figmaSiteConfiguration(siteConfiguration),
+      figmaSiteConfiguration(loadSiteConfiguration()),
       figmaErrorOverlayReplay(),
       figmaReactRefreshBoundaryFallback(),
       figmaMakeKitPlugin({ storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}' }),
@@ -45,6 +43,12 @@ react(),
     },
   }
 })
+
+function loadSiteConfiguration(): FigmaSiteConfiguration {
+  const filePath = path.resolve(process.cwd(), '.figma/make/site.json')
+  if (!fs.existsSync(filePath)) return {}
+  return JSON.parse(fs.readFileSync(filePath, 'utf8')) as FigmaSiteConfiguration
+}
 
 type FigmaSiteConfiguration = {
   title?: string
