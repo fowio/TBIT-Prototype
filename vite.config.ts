@@ -7,11 +7,11 @@ import siteConfiguration from './.figma/make/site.json'
 
 
 export default defineConfig(({ mode }) => {
-  base: '/TBIT-Prototype/',
   const emitSourcemaps = mode === 'development'
 
   return {
-    base: process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : '/',
+
+    base: '/TBIT-Prototype/',
     build: {
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
