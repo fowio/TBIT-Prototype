@@ -3,6 +3,7 @@ import { APPOINTMENTS, addDays, formatDate } from "../lib/regimen"
 
 interface Props {
   userData: UserData
+  onSwitchRole: () => void
 }
 
 function getTreatmentDay(start: Date, now: Date) {
@@ -10,7 +11,7 @@ function getTreatmentDay(start: Date, now: Date) {
   return Math.max(1, diff + 1)
 }
 
-export default function Profile({ userData }: Props) {
+export default function Profile({ userData, onSwitchRole }: Props) {
   const today = new Date(2026, 9, 5)
   const treatmentDay = getTreatmentDay(userData.treatmentDayStart, today)
   const treatmentPct = Math.round((treatmentDay / userData.treatmentDays) * 100)
@@ -39,6 +40,12 @@ export default function Profile({ userData }: Props) {
             <p className="text-white/60 text-xs font-light">ID: TB-2026-00482</p>
           </div>
         </div>
+        <button
+          onClick={onSwitchRole}
+          className="mt-5 min-h-11 px-4 rounded-full bg-white/15 text-white text-sm font-semibold transition-transform active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          Switch user type
+        </button>
       </div>
 
       {/* Stats card — overlapping green header */}

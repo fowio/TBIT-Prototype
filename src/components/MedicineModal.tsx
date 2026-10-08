@@ -80,17 +80,18 @@ export default function MedicineModal({ pillsTaken, drugsTaken, dailyTarget, onS
           </button>
         </div>
 
-        {needsPick && (
+        {(
           <fieldset className="mb-6">
-            <legend className="text-sm font-semibold text-[#1C1C1C] mb-2">Which pills did you take?</legend>
+            <legend className="text-sm font-semibold text-[#1C1C1C] mb-2">Pills taken today</legend>
             <div className="flex flex-col gap-2">
               {REGIMEN.map((d) => {
                 const checked = drugs.includes(d.name)
-                const blocked = !checked && remaining === 0
+                const locked = count === 0 || count >= dailyTarget
+                const blocked = locked || (!checked && remaining === 0)
                 return (
                   <label
                     key={d.name}
-                    className={`flex items-center gap-3 min-h-11 rounded-xl px-3 py-2 cursor-pointer ${checked ? "bg-[#C8DDD1]" : "bg-[#EDE8DF]"} ${blocked ? "opacity-50" : ""}`}
+                    className={`flex items-center gap-3 min-h-11 rounded-xl px-3 py-2 cursor-pointer ${checked ? "bg-[#C8DDD1]" : "bg-[#EDE8DF]"} ${blocked ? "opacity-60" : ""}`}
                   >
                     <input
                       type="checkbox"
@@ -105,8 +106,14 @@ export default function MedicineModal({ pillsTaken, drugsTaken, dailyTarget, onS
                 )
               })}
             </div>
-            <p className="text-xs text-[#7A756E] mt-2" aria-live="polite">
-              {remaining > 0 ? `Select ${remaining} more ${remaining === 1 ? "pill" : "pills"}.` : "All selected."}
+            <p className="text-xs text-[#7A756E] mt-2 h-4" aria-live="polite">
+              {count === 0
+                ? "Add a pill to choose which ones."
+                : count >= dailyTarget
+                  ? "All pills taken."
+                  : remaining > 0
+                    ? `Select ${remaining} more ${remaining === 1 ? "pill" : "pills"}.`
+                    : "All selected."}
             </p>
           </fieldset>
         )}

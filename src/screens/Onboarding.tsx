@@ -1,5 +1,7 @@
+export type Role = "patient" | "curious" | "supporter"
+
 interface Props {
-  onComplete: (hasTB: boolean) => void
+  onComplete: (role: Role) => void
 }
 
 export default function Onboarding({ onComplete }: Props) {
@@ -60,8 +62,8 @@ export default function Onboarding({ onComplete }: Props) {
         {/* Choices */}
         <div className="w-full flex flex-col gap-4">
           <button
-            onClick={() => onComplete(true)}
-            className="w-full bg-[#4A7C5F] text-white rounded-2xl px-6 py-5 text-left hover:bg-[#3d6950] active:scale-[0.98] transition-all shadow-md"
+            onClick={() => onComplete("patient")}
+            className="w-full bg-[#4A7C5F] text-white rounded-2xl px-6 py-5 text-left hover:bg-[#3d6950] active:scale-[0.98] transition-[background-color,transform] shadow-md"
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -94,8 +96,8 @@ export default function Onboarding({ onComplete }: Props) {
           </button>
 
           <button
-            onClick={() => onComplete(false)}
-            className="w-full bg-[#FDFAF4] text-[#1C1C1C] rounded-2xl px-6 py-5 text-left border border-[rgba(0,0,0,0.08)] hover:bg-white active:scale-[0.98] transition-all shadow-sm"
+            onClick={() => onComplete("curious")}
+            className="w-full bg-[#FDFAF4] text-[#1C1C1C] rounded-2xl px-6 py-5 text-left hover:bg-white active:scale-[0.98] transition-[background-color,transform] shadow-sm"
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-[#EDE8DF] rounded-xl flex items-center justify-center flex-shrink-0">
@@ -129,6 +131,30 @@ export default function Onboarding({ onComplete }: Props) {
                 </div>
                 <div className="text-[#7A756E] text-sm font-light mt-0.5">
                   Check my TB risk level
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => onComplete("supporter")}
+            className="w-full bg-[#FDFAF4] text-[#1C1C1C] rounded-2xl px-6 py-5 text-left hover:bg-white active:scale-[0.98] transition-[background-color,transform] shadow-sm"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-[#EDE8DF] rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="9" cy="8" r="3.2" stroke="#4A7C5F" strokeWidth="2" />
+                  <circle cx="17" cy="9.5" r="2.4" stroke="#4A7C5F" strokeWidth="2" />
+                  <path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" stroke="#4A7C5F" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M16 14c2.8-.2 5 1.6 5 4.5" stroke="#4A7C5F" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+              <div>
+                <div className="font-semibold text-base leading-tight text-[#1C1C1C]">
+                  I am a support member
+                </div>
+                <div className="text-[#7A756E] text-sm font-light mt-0.5">
+                  Relative or friend who wants to learn about TB
                 </div>
               </div>
             </div>

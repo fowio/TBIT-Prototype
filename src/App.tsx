@@ -1,18 +1,20 @@
 import { useState } from "react"
-import Onboarding from "./screens/Onboarding"
+import Onboarding, { type Role } from "./screens/Onboarding"
 import RiskQuiz from "./screens/RiskQuiz"
 import Home from "./screens/Home"
 import Map from "./screens/Map"
 import Chat from "./screens/Chat"
+import Learn from "./screens/Learn"
 import Profile from "./screens/Profile"
 import BottomNav from "./components/BottomNav"
 
-export type AppTab = "home" | "map" | "chat" | "profile"
+export type AppTab = "home" | "learn" | "map" | "chat" | "profile"
 type AppScreen = "onboarding" | "risk-quiz" | "app"
 
 export interface UserData {
   name: string
   hasTB: boolean
+  role: Role
   pillsToday: number
   drugsTaken: string[]
   dailyTarget: number
@@ -23,6 +25,7 @@ export interface UserData {
 const defaultUser: UserData = {
   name: "Andi",
   hasTB: true,
+  role: "patient",
   pillsToday: 2,
   drugsTaken: ["Isoniazid (H)", "Rifampicin (R)"],
   dailyTarget: 4,
@@ -35,17 +38,23 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<AppTab>("home")
   const [userData, setUserData] = useState<UserData>(defaultUser)
 
-  const handleOnboardingComplete = (hasTB: boolean) => {
-    setUserData((u) => ({ ...u, hasTB }))
-    if (hasTB) {
-      setScreen("app")
-    } else {
-      setScreen("risk-quiz")
-    }
+  const handleOnboardingComplete = (role: Role) => {
+    const hasTB = role === "patient"
+    setUserData((u) => ({ ...u, hasTB, role }))
+    setActiveTab(hasTB ? "home" : "learn")
+    setScreen(role === "curious" ? "risk-quiz" : "app")
   }
 
-  const handleQuizComplete = () => {
+  const handleQuizComplete = (choice: "app" | "learn") => {
+    const useApp = choice === "app"
+    setUserData((u) => ({ ...u, hasTB: useApp }))
+    setActiveTab(useApp ? "home" : "learn")
     setScreen("app")
+  }
+
+  const switchRole = () => {
+    setActiveTab("home")
+    setScreen("onboarding")
   }
 
   const saveLog = (count: number, drugs: string[]) => {
@@ -70,11 +79,12 @@ export default function App() {
         {activeTab === "home" && (
           <Home userData={userData} onSaveLog={saveLog} />
         )}
+        {activeTab === "learn" && <Learn onSwitchRole={switchRole} />}
         {activeTab === "map" && <Map />}
         {activeTab === "chat" && <Chat userName={userData.name} />}
-        {activeTab === "profile" && <Profile userData={userData} />}
+        {activeTab === "profile" && <Profile userData={userData} onSwitchRole={switchRole} />}
       </div>
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      <BottomNav hasTB={userData.hasTB} activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   )
 }

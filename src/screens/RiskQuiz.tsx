@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 interface Props {
-  onComplete: () => void
+  onComplete: (choice: "app" | "learn") => void
 }
 
 const questions = [
@@ -92,12 +92,21 @@ export default function RiskQuiz({ onComplete }: Props) {
             </div>
           </div>
 
-          <button
-            onClick={onComplete}
-            className="w-full bg-[#4A7C5F] text-white rounded-2xl py-4 font-semibold text-base hover:bg-[#3d6950] active:scale-[0.98] transition-all shadow-md"
-          >
-            Continue to App
-          </button>
+          <div className="w-full flex flex-col gap-3">
+            <p className="text-sm font-semibold text-[#1C1C1C] text-center">What would you like to do next?</p>
+            <button
+              onClick={() => onComplete("learn")}
+              className="w-full bg-[#4A7C5F] text-white rounded-2xl py-4 font-semibold text-base hover:bg-[#3d6950] active:scale-[0.98] transition-[background-color,transform] shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#355C45]"
+            >
+              Learn about TB
+            </button>
+            <button
+              onClick={() => onComplete("app")}
+              className="w-full bg-[#FDFAF4] text-[#1C1C1C] rounded-2xl py-4 font-semibold text-base hover:bg-white active:scale-[0.98] transition-[background-color,transform] shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#355C45]"
+            >
+              Use the treatment app
+            </button>
+          </div>
         </div>
       </div>
     )

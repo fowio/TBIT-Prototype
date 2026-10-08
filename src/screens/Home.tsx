@@ -183,18 +183,6 @@ export default function Home({ userData, onSaveLog }: Props) {
         My daily insights &middot; {isSelectedToday ? "Today" : dateLabel}
       </h3>
       <div className="snap-row flex gap-3 overflow-x-auto px-8 py-1 shrink-0">
-        <button
-          onClick={() => isSelectedToday && setShowModal(true)}
-          className="shrink-0 w-32 h-44 bg-white rounded-2xl p-3 flex flex-col items-center justify-between text-center shadow-sm"
-        >
-          <p className="font-semibold text-sm leading-tight pt-1">
-            Log your pills
-          </p>
-          <span className="w-11 h-11 rounded-full bg-[#4A7C5F] text-white text-2xl flex items-center justify-center">
-            +
-          </span>
-        </button>
-
         <div className="shrink-0 w-32 h-44 bg-[#C8DDD1] rounded-2xl ring-2 ring-[#4A7C5F] p-3 flex flex-col items-center justify-between text-center">
           <p className="font-semibold text-sm leading-tight pt-1">
             Pills taken

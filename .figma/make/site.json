@@ -1,1 +1,10 @@
-{} 
+{
+  "description": "Track daily tuberculosis medication, monitor treatment progress, find nearby healthcare centers, and access symptom support through an interactive chatbot.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
